@@ -133,12 +133,7 @@ author_profile: false
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
-        <!-- Your video here -->
-        <source src="../static/videos/banner_video.mp4"
-        type="video/mp4">
-      </video>
-      <h2 class="title is-3">Abstract</h2>
+      <h2 class="title is-3 is-centered">Abstract</h2>
       <div class="content has-text-justified">
         Compositional neural scene graph studies have shown that radiance fields can be an efficient tool in an editable autonomous driving simulator. However, previous studies learned within a sequence of autonomous driving datasets, resulting in unsatisfactory blurring when rotating the car in the simulator. In our work, we propose a pipeline for learning unconstrained images and building a dataset from processed images. To meet the requirements of the simulator, which demands that the vehicle maintain clarity when the perspective changes and that the contour remains sharp from the background to avoid artifacts when editing, we design a radiation field of the vehicle, a crucial part of the urban scene foreground. Through experiments, we demonstrate that our model achieves competitive performance compared to baselines. Using the datasets built from in-the-wild images, our method gradually presents a controllable appearance editing function. We will release the dataset and code here to facilitate further research in the field.
       </h2>
@@ -147,7 +142,7 @@ author_profile: false
 </section>
 <!-- End teaser video -->
 
-<!-- Paper abstract -->
+<!-- Paper highlights -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -164,40 +159,8 @@ author_profile: false
     </div>
   </div>
 </section>
-<!-- End paper abstract -->
+<!-- End paper highlights -->
 
-<section class="hero is-small">
-	<div class="container is-max-desktop">
-	  <div class="hero-body">
-      <img src="../static/images/input_output.gif" alt="input_and_output"/>
-	    <h2 class="subtitle has-text-centered">
-        Our approach utilizes zero-shot learning to reconstruct the foreground radiance field of a scene containing multiple cars from a single image (top right). Test-time optimization improves image quality (bottom left). Final rendered output (bottom right = top right + bottom left).
-	    </h2>
-	  </div>
-	</div>
-</section>
-
-<section class="hero is-small is-light">
-	<div class="container is-max-desktop">
-	  <div class="hero-body">
-      <center><img src="../static/images/rotation.gif" alt="rotation" width="75%" height="75%"/></center>
-	    <h2 class="subtitle has-text-centered">
-        Foreground car editing in an autonomous driving simulator using zero-shot learning. Our method learns priors, providing superior performance to neural scene graphs [Julian Ost et.al. CVPR 21], as shown in the top comparison.
-	    </h2>
-	  </div>
-	</div>
-</section>
-
-<section class="hero is-small">
-	<div class="container is-max-desktop">
-	  <div class="hero-body">
-      <center><img src="../static/images/transformed_insertion.gif" alt="transformed_insertion" width="75%" height="75%"/></center>
-	    <h2 class="subtitle has-text-centered">
-        Manipulation of a car instance to demonstrate our proposed approach's editing ability for an autonomous driving simulator.
-	    </h2>
-	  </div>
-	</div>
-</section>
 
 <!-- Image carousel -->
 <section class="hero is-small">
@@ -239,6 +202,41 @@ author_profile: false
 <!-- End image carousel -->
 
 
+
+
+
+<section class="hero is-small">
+	<div class="container is-max-desktop">
+	  <div class="hero-body">
+      <img src="../static/images/input_output.gif" alt="input_and_output"/>
+	    <h2 class="subtitle has-text-centered">
+        Our approach utilizes zero-shot learning to reconstruct the foreground radiance field of a scene containing multiple cars from a single image (top right). Test-time optimization improves image quality (bottom left). Final rendered output (bottom right = top right + bottom left).
+	    </h2>
+	  </div>
+	</div>
+</section>
+
+<section class="hero is-small is-light">
+	<div class="container is-max-desktop">
+	  <div class="hero-body">
+      <center><img src="../static/images/rotation.gif" alt="rotation" width="75%" height="75%"/></center>
+	    <h2 class="subtitle has-text-centered">
+        Foreground car editing in an autonomous driving simulator using zero-shot learning. Our method learns priors, providing superior performance to neural scene graphs [Julian Ost et.al. CVPR 21], as shown in the top comparison.
+	    </h2>
+	  </div>
+	</div>
+</section>
+
+<section class="hero is-small">
+	<div class="container is-max-desktop">
+	  <div class="hero-body">
+      <center><img src="../static/images/transformed_insertion.gif" alt="transformed_insertion" width="75%" height="75%"/></center>
+	    <h2 class="subtitle has-text-centered">
+        Manipulation of a car instance to demonstrate our proposed approach's editing ability for an autonomous driving simulator.
+	    </h2>
+	  </div>
+	</div>
+</section>
 
 
 <!-- Youtube video -->
