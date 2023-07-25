@@ -199,16 +199,25 @@ author_profile: false
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">JSON description file segment for the CarPatch3D dataset.</h2>
-    <pre><code>
-      {"patch": "patch/km_0400000002_patch.png",					                          //path to the car patch file
-      "mask": "mask/km_0400000002_mask.png", 					                              //path to the mask file
-      "image_file": "../kitti-mot/training/image_02/0004/000000.png",		            //path to the scene image file
-      "fl_x": 721.5377, "fl_y": 721.5377, "cx": 609.5593, "cy": 172.854, 		        //camera intrinsics
-      "cam_tx": 44.85728, "cam_ty": 0.2163791, "cam_tz": 0.002745884, 		          //camera extrinsics
-      "xmin": 805.735819, "xmax": 960.597684, "ymin": 161.72116, "ymax": 251.71257, //2D region of interest
-      "height": 1.649293, "width": 1.669751, "length": 3.639134, 			              //3D dimensions of the car
-      "obj_x": 5.751944, "obj_y": 1.457555, "obj_z": 15.096122, "yaw": -0.788125, 	//car pose
-      "w": 1242, "h": 375								                                             //shape of the scene image
+    <pre id="regexString"><code>
+      {//path to the car patch file
+      "patch": "patch/km_0400000002_patch.png",
+      //path to the mask file
+      "mask": "mask/km_0400000002_mask.png", 		
+      //path to the scene image file			                              
+      "image_file": "../kitti-mot/training/image_02/0004/000000.png",
+      //camera intrinsics
+      "fl_x": 721.5377, "fl_y": 721.5377, "cx": 609.5593, "cy": 172.854, 		        
+      //camera extrinsics
+      "cam_tx": 44.85728, "cam_ty": 0.2163791, "cam_tz": 0.002745884, 	
+      //2D region of interest	          
+      "xmin": 805.735819, "xmax": 960.597684, "ymin": 161.72116, "ymax": 251.71257, 
+      //3D dimensions of the car
+      "height": 1.649293, "width": 1.669751, "length": 3.639134, 	
+      //car pose		              
+      "obj_x": 5.751944, "obj_y": 1.457555, "obj_z": 15.096122, "yaw": -0.788125, 	
+      //shape of the scene image
+      "w": 1242, "h": 375								                                             
       }
     </code></pre>
   </div>
