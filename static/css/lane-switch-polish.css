@@ -1,0 +1,292 @@
+/* Page-specific polish for Lane Switch Gaussian Splatting project page.
+   Intentionally scoped and minimal to avoid affecting the rest of the site. */
+
+:root {
+  /* Light (Apple-like) palette */
+  --ls-text: hsl(0, 0%, 10%);
+  --ls-muted: hsl(0, 0%, 38%);
+  --ls-border: hsl(0, 0%, 90%);
+  /* Matches existing accent used in static/css/index.css */
+  --ls-accent: hsl(204, 86%, 53%);
+
+  /* Figure accent helpers */
+  --ls-red: #d94a4a;
+  --ls-blue: #2b6cb0;
+}
+
+body {
+  color: var(--ls-text);
+  font-size: 16px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.text-red {
+  color: var(--ls-red);
+}
+
+.text-blue {
+  color: var(--ls-blue);
+}
+
+/* Hero/header spacing */
+.hero .hero-body {
+  padding-top: 4rem;
+  padding-bottom: 3.5rem;
+}
+
+@media (max-width: 768px) {
+  .hero .hero-body {
+    padding-top: 2.5rem;
+    padding-bottom: 2.25rem;
+  }
+}
+
+/* Title typography */
+.publication-title {
+  max-width: 44ch;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.publication-title-main {
+  font-size: clamp(2.2rem, 4.6vw, 3.8rem);
+  font-weight: 750;
+  color: hsl(0, 0%, 12%);
+}
+
+@media (min-width: 1024px) {
+  .publication-title-main {
+    white-space: nowrap;
+  }
+}
+
+.publication-title-sub {
+  max-width: 56ch;
+  font-size: clamp(1.1rem, 2.0vw, 1.7rem);
+  font-weight: 500;
+  color: var(--ls-muted);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+
+/* Authors/affiliations */
+.publication-authors {
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+  color: var(--ls-muted);
+}
+
+.publication-authors .author-block {
+  margin-right: 0.15rem;
+  white-space: nowrap;
+}
+
+.publication-authors a {
+  color: var(--ls-accent) !important;
+  font-weight: 600;
+}
+
+.publication-authors sup {
+  font-size: 0.8em;
+  vertical-align: super;
+}
+
+.eql-cntrb {
+  color: var(--ls-muted);
+}
+
+/* Buttons */
+.publication-links {
+  margin-top: 1.6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.9rem;
+  row-gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.publication-links .link-block {
+  display: inline-flex;
+}
+
+.publication-links .button {
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.publication-links .button.is-dark {
+  background-color: transparent;
+  color: hsl(0, 0%, 12%);
+  border: 1px solid var(--ls-border);
+  box-shadow: none;
+  padding-left: 1.15rem;
+  padding-right: 1.15rem;
+}
+
+.publication-links .button.is-dark:hover {
+  background-color: hsl(0, 0%, 96%);
+  border-color: hsl(0, 0%, 84%);
+}
+
+.publication-links .button.is-dark:focus {
+  box-shadow: none;
+}
+
+.publication-links .button.is-dark .icon {
+  color: hsl(0, 0%, 12%);
+}
+
+/* Section headings + content rhythm */
+.section .title,
+.hero .title {
+  letter-spacing: -0.01em;
+}
+
+.content {
+  color: var(--ls-text);
+}
+
+.content.has-text-justified {
+  line-height: 1.75;
+}
+
+/* Code blocks / pre areas */
+pre,
+pre code {
+  border-radius: 12px;
+}
+
+#jsonfile pre {
+  border: 1px solid var(--ls-border);
+}
+
+/* Section rhythm - unified vertical spacing */
+#demos,
+.hero.teaser,
+.hero.is-small {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  #demos,
+  .hero.teaser,
+  .hero.is-small {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+/* Demo showcase */
+.demo-subtitle {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--ls-muted);
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.abstract-text {
+  max-width: 65ch;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  line-height: 1.75;
+}
+
+@media (min-width: 1024px) {
+  #demos .container.is-max-desktop {
+    max-width: 1120px;
+  }
+}
+
+.demo-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid hsl(0, 0%, 88%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.demo-tab {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: hsl(0, 0%, 35%);
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  font-family: 'Google Sans', 'Noto Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+}
+
+.demo-tab.is-active {
+  background: hsl(0, 0%, 96%);
+  color: hsl(0, 0%, 12%);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.demo-tab:hover {
+  background: hsl(0, 0%, 98%);
+  color: hsl(0, 0%, 16%);
+}
+
+.demo-player {
+  margin-top: 1rem;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #000;
+  max-width: 1120px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  --demo-scale: 1;
+}
+
+.demo-bg {
+  position: absolute;
+  inset: -20px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(24px);
+  transform: scale(1.08);
+  opacity: 0.9;
+}
+
+.demo-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.demo-player .demo-video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  transform: scale(var(--demo-scale));
+  transform-origin: center;
+}
+

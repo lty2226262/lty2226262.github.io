@@ -1,0 +1,426 @@
+---
+layout: sass
+title: "lane-switch-gaussian-splatting"
+permalink: /lane-switch-gaussian-splatting/
+author_profile: false
+---
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
+  <!-- Replace the content tag with appropriate information -->
+  <meta name="description" content="DESCRIPTION META TAG">
+  <meta property="og:title" content="SOCIAL MEDIA TITLE TAG"/>
+  <meta property="og:description" content="SOCIAL MEDIA DESCRIPTION TAG TAG"/>
+  <meta property="og:url" content="URL OF THE WEBSITE"/>
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
+  <meta property="og:image" content="../static/image/your_banner_image.png" />
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+
+
+  <meta name="twitter:title" content="TWITTER BANNER TITLE META TAG">
+  <meta name="twitter:description" content="TWITTER BANNER DESCRIPTION META TAG">
+  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
+  <meta name="twitter:image" content="../static/images/your_twitter_banner_image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Keywords for your paper to be indexed by-->
+  <meta name="keywords" content="KEYWORDS SHOULD BE PLACED HERE">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Lane Switch Gaussian Splatting</title>
+  <link rel="icon" type="image/x-icon" href="../static/images/icon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="../static/css/bulma.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="../static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="../static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/css/index.css">
+  <link rel="stylesheet" href="../static/css/lane-switch-polish.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="../static/js/fontawesome.all.min.js"></script>
+  <script src="../static/js/bulma-carousel.min.js"></script>
+  <script src="../static/js/bulma-slider.min.js"></script>
+  <script src="../static/js/index.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const player = document.getElementById('demoPlayer');
+      const source = document.getElementById('demoSource');
+      const bg = document.getElementById('demoBg');
+      const tabs = Array.from(document.querySelectorAll('#demos .demo-tab'));
+      if (!player || !source || !bg || tabs.length === 0) return;
+
+      const setActive = (activeTab) => {
+        tabs.forEach((tab) => {
+          const isActive = tab === activeTab;
+          tab.classList.toggle('is-active', isActive);
+          tab.setAttribute('aria-selected', String(isActive));
+        });
+      };
+
+      let currentIndex = 0;
+
+      const loadDemo = async (tab, { autoplay } = { autoplay: true }) => {
+        const src = tab.getAttribute('data-src');
+        const poster = tab.getAttribute('data-poster');
+        const scale = tab.getAttribute('data-scale');
+        if (!src) return;
+
+        setActive(tab);
+        currentIndex = Math.max(0, tabs.indexOf(tab));
+        if (poster) {
+          player.setAttribute('poster', poster);
+          bg.style.backgroundImage = `url('${poster}')`;
+        }
+
+        const playerContainer = player.closest('.demo-player');
+        if (playerContainer) {
+          playerContainer.style.setProperty('--demo-scale', scale || '1');
+        }
+
+        player.pause();
+        source.src = src;
+        player.load();
+
+        try {
+          if (autoplay) await player.play();
+        } catch {
+          // Autoplay can be blocked in some environments; user can tap to start.
+        }
+      };
+
+      tabs.forEach((tab) => {
+        tab.addEventListener('click', () => loadDemo(tab));
+      });
+
+      player.addEventListener('ended', () => {
+        const nextIndex = (currentIndex + 1) % tabs.length;
+        loadDemo(tabs[nextIndex]);
+      });
+
+      // Initial load
+      loadDemo(tabs.find((t) => t.classList.contains('is-active')) || tabs[0]);
+    });
+  </script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">
+                <span class="publication-title-main">🛣️Lane-Switch Gaussian Splatting</span>
+                <span class="publication-title-sub">Urban Scene View Extrapolation via Selective Diffusion Refinement</span>
+              </h1>
+                  <div class="is-size-5 publication-authors">
+                    <!-- Paper authors -->
+                    <span class="author-block"><a>Tianyu Liu</a><sup>1</sup>,</span>
+                    <span class="author-block"><a>Yuan Liu</a><sup>1†</sup>,</span>
+                    <span class="author-block"><a>Bin Ma</a><sup>2</sup>,</span>
+                    <span class="author-block"><a>Kunming Luo</a><sup>1</sup>,</span>
+                    <span class="author-block"><a>Ping Tan</a><sup>1†</sup></span>
+                  </div>
+
+                  <div class="is-size-5 publication-authors">
+                    <span class="author-block">
+                      <sup>1</sup>The Hong Kong University of Science and Technology<br>
+                      <sup>2</sup>Meta
+                    </span>
+                    <span class="eql-cntrb"><small><br><sup>†</sup>Corresponding Author</small></span>
+                  </div>
+
+                  <div class="column has-text-centered">
+                    <div class="publication-links">
+                         <!-- Arxiv PDF link -->
+                      <span class="link-block">
+                        <a href="TBD" target="_blank"
+                        class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                          <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+
+                  <!-- Github link -->
+                  <span class="link-block">
+                    <a href="https://github.com/lty2226262/lane_switch" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Lane Switch View Extrapolation -->
+<section class="section is-light" id="demos">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Lane Switch View Extrapolation</h2>
+        <p class="demo-subtitle">Real-time rendering at 112 FPS</p>
+        <div class="demo-tabs" role="tablist" aria-label="Demo datasets">
+          <button class="demo-tab is-active" type="button" role="tab" aria-selected="true" data-src="../static/lane_switch_gs/demo_videos/argoverse.webm" data-poster="../static/lane_switch_gs/demo_videos/posters/argoverse.jpg" data-scale="0.62">Argoverse</button>
+          <button class="demo-tab" type="button" role="tab" aria-selected="false" data-src="../static/lane_switch_gs/demo_videos/kitti.webm" data-poster="../static/lane_switch_gs/demo_videos/posters/kitti.jpg">KITTI</button>
+          <button class="demo-tab" type="button" role="tab" aria-selected="false" data-src="../static/lane_switch_gs/demo_videos/nuplan.webm" data-poster="../static/lane_switch_gs/demo_videos/posters/nuplan.jpg">nuPlan</button>
+          <button class="demo-tab" type="button" role="tab" aria-selected="false" data-src="../static/lane_switch_gs/demo_videos/pandaset.webm" data-poster="../static/lane_switch_gs/demo_videos/posters/pandaset.jpg">PandaSet</button>
+          <button class="demo-tab" type="button" role="tab" aria-selected="false" data-src="../static/lane_switch_gs/demo_videos/waymo.webm" data-poster="../static/lane_switch_gs/demo_videos/posters/waymo.jpg">Waymo</button>
+        </div>
+
+        <div class="demo-player" aria-label="Demo video player">
+          <div id="demoBg" class="demo-bg" aria-hidden="true"></div>
+          <video id="demoPlayer" class="demo-video" autoplay muted playsinline preload="metadata" width="1280" height="720" poster="../static/lane_switch_gs/demo_videos/posters/argoverse.jpg">
+            <source id="demoSource" src="" type="video/webm">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="hero teaser is-light">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content abstract-text">
+            Existing autonomous driving simulators struggle with realistic view synthesis when vehicles switch lanes, often producing artifacts or floaters. Lane-Switch Gaussian Splatting addresses this with a plugin designed specifically for lateral view extrapolation in lane-switch scenarios. Its core strength is progressive refinement: the GaussianRefiner fills in artifacts and missing content, while the Adaptive Refinement Arbiter enables selective optimization—preserving geometric consistency in high-quality regions without over-correction. No scene-specific fine-tuning is needed, it maintains real-time rendering at 112 FPS, and boasts strong generalization to unseen datasets.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End abstract -->
+
+<!-- Method Overview -->
+<section class="hero is-small">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="title is-3 has-text-centered">Method Overview</h2>
+      <center><img src="../static/lane_switch_gs/figures/teaser.png" alt="Lane-Switch Gaussian Splatting Pipeline" width="100%" height="100%"/></center>
+      <div class="content has-text-centered" style="margin-top: 1.5rem; color: var(--ls-muted, hsl(0, 0%, 38%)); max-width: 85ch; margin-left: auto; margin-right: auto; line-height: 1.65;">
+        <p><strong>Lane-Switch Gaussian Splatting</strong> addresses urban scene view extrapolation for lane-switch scenarios. We optimize Gaussian primitives using input views (<span class="text-red">red</span>) to synthesize extrapolated target viewpoints (<span class="text-blue">blue</span>). Direct rendering at extrapolated poses often suffers from artifacts and missing content. To resolve this, we introduce <strong>GaussianRefiner</strong>, a fine-tuned diffusion module that generates high-quality images conditioned on both rendering outputs and original training views—ensuring geometric consistency while mitigating artifacts. The <strong>Adaptive Refinement Arbiter</strong> selectively applies targeted guidance to prevent over-correction. Refined outputs are iteratively fed back to enhance rendering quality.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End method overview -->
+
+<!-- Visual Quality Improvement -->
+<section class="hero is-small is-light">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="title is-3 has-text-centered">Visual Quality Improvement</h2>
+      <p class="has-text-centered" style="color: var(--ls-muted); margin-bottom: 2.5rem; font-size: 1.05rem;">Real-time rendering at 112 FPS with adaptive refinement</p>
+      
+      <!-- Case 1 -->
+      <div class="refinement-case" style="margin-bottom: 3rem;">
+        <h3 class="title is-5 has-text-centered" style="margin-bottom: 0.75rem;">Case 1: Full-Scale Refinement</h3>
+        <p class="has-text-centered" style="color: var(--ls-muted); margin-bottom: 1.25rem; font-size: 0.95rem;">Extrapolated Overall Poor Rendering → Complete Quality Restoration</p>
+        <div style="border-radius: 16px; overflow: hidden; max-width: 900px; margin: 0 auto;">
+          <video autoplay muted loop playsinline style="width: 100%; display: block;">
+            <source src="../static/lane_switch_gs/demo_videos/case1-1.webm" type="video/webm">
+          </video>
+        </div>
+      </div>
+
+      <!-- Case 2 -->
+      <div class="refinement-case" style="margin-bottom: 3rem;">
+        <h3 class="title is-5 has-text-centered" style="margin-bottom: 0.75rem;">Case 2: Selective Refinement</h3>
+        <p class="has-text-centered" style="color: var(--ls-muted); margin-bottom: 1.25rem; font-size: 0.95rem;">Extrapolated Overall Good Rendering → Keep Strengths, Fix Imperfections</p>
+        <div style="border-radius: 16px; overflow: hidden; max-width: 900px; margin: 0 auto;">
+          <video autoplay muted loop playsinline style="width: 100%; display: block;">
+            <source src="../static/lane_switch_gs/demo_videos/case2-1.webm" type="video/webm">
+          </video>
+        </div>
+      </div>
+
+      <!-- Case 3 -->
+      <div class="refinement-case" style="margin-bottom: 1.5rem;">
+        <h3 class="title is-5 has-text-centered" style="margin-bottom: 0.75rem;">Case 3: Deblurring Refinement</h3>
+        <p class="has-text-centered" style="color: var(--ls-muted); margin-bottom: 1.25rem; font-size: 0.95rem;">Blurriness from Imperfect Intrinsics/Extrinsics → Directly Improve Blurred Outputs</p>
+        <div style="border-radius: 16px; overflow: hidden; max-width: 900px; margin: 0 auto;">
+          <video autoplay muted loop playsinline style="width: 100%; display: block;">
+            <source src="../static/lane_switch_gs/demo_videos/case3-1.webm" type="video/webm">
+          </video>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- End visual quality improvement -->
+
+<!-- Key Modules -->
+<section class="hero is-small">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="title is-3 has-text-centered">How It Works</h2>
+      <div class="columns is-centered" style="margin-top: 2rem;">
+        <div class="column is-10">
+          
+          <!-- GaussianRefiner -->
+          <div style="margin-bottom: 2.5rem;">
+            <h3 class="title is-5" style="margin-bottom: 0.75rem; color: var(--ls-text);"><strong>GaussianRefiner (GR)</strong></h3>
+            <div class="content" style="color: var(--ls-muted); line-height: 1.7;">
+              <p>GR performs dual-level refinement: pixel-aligned repair via channel-concatenated inputs (corrupted image + noise), and non-aligned feature correction through cross-attention. This ensures both geometric fidelity and semantic coherence with original training views.</p>
+            </div>
+          </div>
+
+          <!-- Adaptive Refinement Arbiter -->
+          <div>
+            <h3 class="title is-5" style="margin-bottom: 0.75rem; color: var(--ls-text);"><strong>Adaptive Refinement Arbiter (ARA)</strong></h3>
+            <div class="content" style="color: var(--ls-muted); line-height: 1.7;">
+              <p>ARA uses DINO-based similarity detection between reference frames and target renders. High-similarity regions leverage the rendered output to guide diffusion sampling, preserving quality. Low-similarity regions trigger unconstrained sampling to fill missing content—preventing over-correction while enabling complete reconstruction.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- End key modules -->
+
+
+<!-- Youtube video -->
+<!-- <section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container"> -->
+      <!-- Paper video. -->
+      <!-- <h2 class="title is-3">Video Presentation</h2>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          
+          <div class="publication-video"> -->
+            <!-- Youtube embed code here -->
+            <!-- <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- End youtube video -->
+
+
+<!-- Video carousel -->
+<!-- <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title is-3">Another Carousel</h2>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-video1">
+          <video poster="" id="video1" autoplay controls muted loop height="100%"> -->
+            <!-- Your video file here -->
+            <!-- <source src="../static/videos/carousel1.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video2">
+          <video poster="" id="video2" autoplay controls muted loop height="100%"> -->
+            <!-- Your video file here -->
+            <!-- <source src="../static/videos/carousel2.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-video3">
+          <video poster="" id="video3" autoplay controls muted loop height="100%">\ -->
+            <!-- Your video file here -->
+            <!-- <source src="../static/videos/carousel3.mp4"
+            type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- End video carousel -->
+
+
+
+
+
+
+<!-- Paper poster -->
+<!-- <section class="hero is-small is-light">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="title">Poster</h2>
+
+      <iframe  src="../static/pdfs/sample.pdf" width="100%" height="550">
+          </iframe>
+        
+      </div>
+    </div>
+  </section> -->
+<!--End paper poster -->
+
+
+<!--BibTex citation -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@misc{liu2026laneswitch,
+      title={Lane-Switch Gaussian Splatting: Urban Scene View Extrapolation via Selective Diffusion Refinement}, 
+      author={Tianyu Liu and Yuan Liu and Bin Ma and Kunming Luo and Ping Tan},
+      year={2026},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}</code></pre>
+  </div>
+</section>
+<!--End BibTex citation -->
+
+
+  <footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+
+          <p>
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
+            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Statcounter tracking code -->
+  
+<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+
+    <!-- End of Statcounter Code -->
+
+  </body>
+  </html>
