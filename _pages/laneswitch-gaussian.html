@@ -204,10 +204,10 @@ author_profile: false
 <section class="hero teaser is-light">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <div class="columns is-centered has-text-centered">
-        <div class="column">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content abstract-text">
+      <div class="columns is-centered">
+        <div class="column is-10">
+          <h2 class="title is-3 has-text-centered" style="margin-bottom: 1.5rem;">Abstract</h2>
+          <div class="content abstract-text" style="text-align: justify; margin-left: 0; margin-right: 0; hyphens: auto;">
             Existing autonomous driving simulators struggle with realistic view synthesis when vehicles switch lanes, often producing artifacts or floaters. Lane-Switch Gaussian Splatting addresses this with a plugin designed specifically for lateral view extrapolation in lane-switch scenarios. Its core strength is progressive refinement: the GaussianRefiner fills in artifacts and missing content, while the Adaptive Refinement Arbiter enables selective optimization—preserving geometric consistency in high-quality regions without over-correction. No scene-specific fine-tuning is needed, it maintains real-time rendering at 112 FPS, and boasts strong generalization to unseen datasets.
           </div>
         </div>
@@ -223,7 +223,7 @@ author_profile: false
     <div class="hero-body">
       <h2 class="title is-3 has-text-centered">Method Overview</h2>
       <center><img src="../static/lane_switch_gs/figures/teaser.png" alt="Lane-Switch Gaussian Splatting Pipeline" width="100%" height="100%"/></center>
-      <div class="content has-text-centered" style="margin-top: 1.5rem; color: var(--ls-muted, hsl(0, 0%, 38%)); max-width: 85ch; margin-left: auto; margin-right: auto; line-height: 1.65;">
+      <div class="content" style="margin-top: 1.5rem; color: var(--ls-muted, hsl(0, 0%, 38%)); max-width: 85ch; margin-left: auto; margin-right: auto; line-height: 1.65; text-align: justify; hyphens: auto;">
         <p><strong>Lane-Switch Gaussian Splatting</strong> addresses urban scene view extrapolation for lane-switch scenarios. We optimize Gaussian primitives using input views (<span class="text-red">red</span>) to synthesize extrapolated target viewpoints (<span class="text-blue">blue</span>). Direct rendering at extrapolated poses often suffers from artifacts and missing content. To resolve this, we introduce <strong>GaussianRefiner</strong>, a fine-tuned diffusion module that generates high-quality images conditioned on both rendering outputs and original training views—ensuring geometric consistency while mitigating artifacts. The <strong>Adaptive Refinement Arbiter</strong> selectively applies targeted guidance to prevent over-correction. Refined outputs are iteratively fed back to enhance rendering quality.</p>
       </div>
     </div>
@@ -280,14 +280,14 @@ author_profile: false
 <section class="hero is-small">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <h2 class="title is-3 has-text-centered">How It Works</h2>
+      <h2 class="title is-3 has-text-centered">💡How It Works</h2>
       <div class="columns is-centered" style="margin-top: 2rem;">
         <div class="column is-10">
           
           <!-- GaussianRefiner -->
           <div style="margin-bottom: 2.5rem;">
             <h3 class="title is-5" style="margin-bottom: 0.75rem; color: var(--ls-text);"><strong>GaussianRefiner (GR)</strong></h3>
-            <div class="content" style="color: var(--ls-muted); line-height: 1.7;">
+            <div class="content" style="color: var(--ls-muted); line-height: 1.7; text-align: justify; hyphens: auto;">
               <p>GR performs dual-level refinement: pixel-aligned repair via channel-concatenated inputs (corrupted image + noise), and non-aligned feature correction through cross-attention. This ensures both geometric fidelity and semantic coherence with original training views.</p>
             </div>
           </div>
@@ -295,7 +295,7 @@ author_profile: false
           <!-- Adaptive Refinement Arbiter -->
           <div>
             <h3 class="title is-5" style="margin-bottom: 0.75rem; color: var(--ls-text);"><strong>Adaptive Refinement Arbiter (ARA)</strong></h3>
-            <div class="content" style="color: var(--ls-muted); line-height: 1.7;">
+            <div class="content" style="color: var(--ls-muted); line-height: 1.7; text-align: justify; hyphens: auto;">
               <p>ARA uses DINO-based similarity detection between reference frames and target renders. High-similarity regions leverage the rendered output to guide diffusion sampling, preserving quality. Low-similarity regions trigger unconstrained sampling to fill missing content—preventing over-correction while enabling complete reconstruction.</p>
             </div>
           </div>
