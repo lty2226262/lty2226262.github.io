@@ -726,9 +726,15 @@ author_profile: false
 
     <div class="progressive-video-wrapper">
       <div class="progressive-main-video-container">
-        <video id="light-video-layer-1" class="progressive-main-video active-layer" src="../static/autoweather4d/videos/nolight.mp4" autoplay muted loop playsinline preload="auto"></video>
-        <video id="light-video-layer-2" class="progressive-main-video hidden-layer" src="" muted loop playsinline preload="auto"></video>
-        <div class="progressive-video-loader"></div>
+        <video id="light-video-layer-1" class="progressive-main-video active-layer" src="../static/autoweather4d/videos/nolight.mp4" autoplay muted loop playsinline preload="auto" controlsList="nodownload"></video>
+        <video id="light-video-layer-2" class="progressive-main-video hidden-layer" src="" muted loop playsinline preload="auto" controlsList="nodownload"></video>
+        <script>
+          // Disable download for all videos
+          document.querySelectorAll('video').forEach(video => {
+            video.setAttribute('controlsList', 'nodownload');
+            video.addEventListener('contextmenu', event => event.preventDefault());
+          });
+        </script>
       </div>
     </div>
 
@@ -808,7 +814,10 @@ author_profile: false
     <div class="gallery-video-wrapper">
       <video 
         class="gallery-video"
-        controls 
+        controls
+        controlsList="nodownload noremoteplayback"
+        disablePictureInPicture
+        oncontextmenu="return false;"
         preload="metadata" 
         poster="../static/autoweather4d/gallery_poster.jpg" 
       >
