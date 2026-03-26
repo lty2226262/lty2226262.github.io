@@ -11,28 +11,20 @@ author_profile: false
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <!-- Primary Meta Tags -->
-  <!-- TODO: Replace with your paper title and author names -->
-  <meta name="title" content="AutoWeather4D - Tianyu Liu, Weitao Xiong, et al.">
-  <!-- TODO: Write a compelling 150-160 character description of your research -->
-  <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Add 5-10 relevant keywords for your research area -->
+  <meta name="title" content="AutoWeather4D: Autonomous Driving Video Weather Conversion via G-Buffer Dual-Pass Editing">
+  <meta name="description" content="AutoWeather4D is a feed-forward 3D-aware framework for weather and lighting conversion in autonomous driving videos with physically grounded, fine-grained control.">
   <meta name="keywords" content="Autonoumous Driving, Simulation, Computer Vision, Computer Graphics">
-  <!-- TODO: List all authors -->
   <meta name="author" content="Tianyu Liu, Weitao Xiong, Kunming Luo, Manyuan Zhang, Peng Li, Yuan Liu, Ping Tan">
   <meta name="robots" content="index, follow">
   <meta name="language" content="English">
+  <link rel="canonical" href="https://lty2226262.github.io/autoweather4d/">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article">
-  <!-- TODO: Replace with your institution or lab name -->
-  <meta property="og:site_name" content="INSTITUTION_OR_LAB_NAME">
-  <!-- TODO: Same as paper title above -->
+  <meta property="og:site_name" content="AutoWeather4D">
   <meta property="og:title" content="AutoWeather4D: Autonomous Driving Video Weather Conversion via G-Buffer Dual-Pass Editing">
-  <!-- TODO: Same as description above -->
-  <meta property="og:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Replace with your actual website URL -->
-  <meta property="og:url" content="https://lty2226262.github.io/AutoWeather4D/">
-  <!-- TODO: Create a 1200x630px preview image and update path -->
+  <meta property="og:description" content="AutoWeather4D is a feed-forward 3D-aware framework for weather and lighting conversion in autonomous driving videos with physically grounded, fine-grained control.">
+  <meta property="og:url" content="https://lty2226262.github.io/autoweather4d/">
   <meta property="og:image" content="https://lty2226262.github.io/AutoWeather4D/static/images/social_preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -45,15 +37,10 @@ author_profile: false
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <!-- TODO: Replace with your lab/institution Twitter handle -->
-  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">
-  <!-- TODO: Replace with first author's Twitter handle -->
-  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
-  <!-- TODO: Same as paper title above -->
+  <meta name="twitter:site" content="@lty2226262">
+  <meta name="twitter:creator" content="@lty2226262">
   <meta name="twitter:title" content="AutoWeather4D: Autonomous Driving Video Weather Conversion via G-Buffer Dual-Pass Editing">
-  <!-- TODO: Same as description above -->
-  <meta name="twitter:description" content="By explicitly manipulating G-buffers, our method enables feed-forward, physically grounded weather editing from real-world driving videos.">
-  <!-- TODO: Same as social preview image above -->
+  <meta name="twitter:description" content="AutoWeather4D is a feed-forward 3D-aware framework for weather and lighting conversion in autonomous driving videos with physically grounded, fine-grained control.">
   <meta name="twitter:image" content="https://lty2226262.github.io/AutoWeather4D/static/images/social_preview.png">
   <meta name="twitter:image:alt" content="AutoWeather4D - Research Preview">
 
@@ -84,8 +71,7 @@ author_profile: false
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
 
-  <!-- TODO: Replace with your paper title and authors -->
-  <title>AutoWeather4D - Tianyu Liu, Weitao Xiong, et al. | Academic Research</title>
+  <title>AutoWeather4D: Autonomous Driving Video Weather Conversion via G-Buffer Dual-Pass Editing</title>
   
   <!-- Favicon and App Icons -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='75' cy='35' r='20' fill='%23fbbf24' /><path d='M25 65 A 20 20 0 0 1 65 65 L 75 65 A 15 15 0 0 0 75 35 A 25 25 0 0 0 30 35 A 20 20 0 0 0 25 65' fill='%2360a5fa' stroke='%233b82f6' stroke-width='2' fill-opacity='0.9'/></svg>">
@@ -566,8 +552,8 @@ author_profile: false
     <!-- Main Video Display -->
     <div class="progressive-video-wrapper">
       <div class="progressive-main-video-container">
-        <video id="progressive-video-layer-1" class="progressive-main-video active-layer" src="../static/autoweather4d/videos/snow_114.mov" autoplay muted loop playsinline preload="auto"></video>
-        <video id="progressive-video-layer-2" class="progressive-main-video hidden-layer" src="" muted loop playsinline preload="auto"></video>
+        <video id="progressive-video-layer-1" class="progressive-main-video active-layer" src="../static/autoweather4d/videos/snow_114.mov" autoplay muted loop playsinline preload="metadata"></video>
+        <video id="progressive-video-layer-2" class="progressive-main-video hidden-layer" src="" muted loop playsinline preload="none"></video>
         <div class="progressive-video-loader"></div>
       </div>
     </div>
@@ -654,8 +640,8 @@ author_profile: false
     <!-- Main Video Display -->
     <div class="progressive-video-wrapper">
       <div class="progressive-main-video-container">
-        <video id="rain-video-layer-1" class="progressive-main-video active-layer" src="../static/autoweather4d/videos/raw_video_220.mov" autoplay muted loop playsinline preload="auto"></video>
-        <video id="rain-video-layer-2" class="progressive-main-video hidden-layer" src="" muted loop playsinline preload="auto"></video>
+        <video id="rain-video-layer-1" class="progressive-main-video active-layer" src="../static/autoweather4d/videos/raw_video_220.mov" autoplay muted loop playsinline preload="metadata"></video>
+        <video id="rain-video-layer-2" class="progressive-main-video hidden-layer" src="" muted loop playsinline preload="none"></video>
         <div class="progressive-video-loader"></div>
       </div>
     </div>
@@ -726,15 +712,8 @@ author_profile: false
 
     <div class="progressive-video-wrapper">
       <div class="progressive-main-video-container">
-        <video id="light-video-layer-1" class="progressive-main-video active-layer" src="../static/autoweather4d/videos/nolight.mp4" autoplay muted loop playsinline preload="auto" controlsList="nodownload"></video>
-        <video id="light-video-layer-2" class="progressive-main-video hidden-layer" src="" muted loop playsinline preload="auto" controlsList="nodownload"></video>
-        <script>
-          // Disable download for all videos
-          document.querySelectorAll('video').forEach(video => {
-            video.setAttribute('controlsList', 'nodownload');
-            video.addEventListener('contextmenu', event => event.preventDefault());
-          });
-        </script>
+        <video id="light-video-layer-1" class="progressive-main-video active-layer" src="../static/autoweather4d/videos/nolight.mp4" autoplay muted loop playsinline preload="metadata" controlsList="nodownload"></video>
+        <video id="light-video-layer-2" class="progressive-main-video hidden-layer" src="" muted loop playsinline preload="none" controlsList="nodownload"></video>
       </div>
     </div>
 
@@ -814,14 +793,14 @@ author_profile: false
     <div class="gallery-video-wrapper">
       <video 
         class="gallery-video"
+        data-src="../static/autoweather4d/videos/gallery.mp4"
         controls
         controlsList="nodownload noremoteplayback"
         disablePictureInPicture
         oncontextmenu="return false;"
-        preload="metadata" 
+        preload="none" 
         poster="../static/autoweather4d/gallery_poster.jpg" 
       >
-        <source src="../static/autoweather4d/videos/gallery.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>

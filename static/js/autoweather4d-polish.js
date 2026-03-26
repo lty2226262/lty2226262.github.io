@@ -260,6 +260,119 @@ function setupVideoCarouselAutoplay() {
     });
 }
 
+const warmedProgressiveSources = new Set();
+let progressiveWarmupContainer = null;
+
+function warmupProgressiveVideoSource(src, preloadMode = 'metadata') {
+    if (!src || warmedProgressiveSources.has(src)) return;
+
+    if (!progressiveWarmupContainer) {
+        progressiveWarmupContainer = document.createElement('div');
+        progressiveWarmupContainer.style.display = 'none';
+        document.body.appendChild(progressiveWarmupContainer);
+    }
+
+    const video = document.createElement('video');
+    video.preload = preloadMode;
+    video.muted = true;
+    video.playsInline = true;
+    video.src = src;
+    video.load();
+
+    progressiveWarmupContainer.appendChild(video);
+    warmedProgressiveSources.add(src);
+}
+
+function warmupShowcaseVideos(showcaseType) {
+    const container = document.querySelector(`.progressive-timeline-container[data-showcase-type="${showcaseType}"]`);
+    if (!container) return;
+
+    const stepSources = Array.from(container.querySelectorAll('.progressive-step'))
+        .map(step => step.getAttribute('data-video-src'))
+        .filter(Boolean);
+
+    if (stepSources.length === 0) return;
+
+    // Warm the first source with metadata and the likely next click target more aggressively.
+    warmupProgressiveVideoSource(stepSources[0], 'metadata');
+    if (stepSources[1]) {
+        warmupProgressiveVideoSource(stepSources[1], 'auto');
+    }
+}
+
+function setupProgressiveVideoWarmup() {
+    const showcaseContainers = document.querySelectorAll('.progressive-timeline-container[data-showcase-type]');
+    if (showcaseContainers.length === 0) return;
+
+    const observer = new IntersectionObserver((entries, io) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+
+            const showcaseType = entry.target.getAttribute('data-showcase-type');
+            if (showcaseType) {
+                warmupShowcaseVideos(showcaseType);
+            }
+
+            io.unobserve(entry.target);
+        });
+    }, {
+        rootMargin: '600px 0px',
+        threshold: 0.01
+    });
+
+    showcaseContainers.forEach(container => observer.observe(container));
+
+    // Idle-time light warmup for the first video of each showcase.
+    const idleWarmup = () => ['snow', 'rain', 'light'].forEach(type => warmupShowcaseVideos(type));
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(idleWarmup, { timeout: 2000 });
+    } else {
+        setTimeout(idleWarmup, 1000);
+    }
+}
+
+function setupGalleryVideoLazyLoad() {
+    const galleryVideo = document.querySelector('.gallery-video[data-src]');
+    if (!galleryVideo) return;
+
+    const loadGallerySource = () => {
+        if (galleryVideo.dataset.loaded === '1') return;
+
+        const src = galleryVideo.getAttribute('data-src');
+        if (!src) return;
+
+        galleryVideo.src = src;
+        galleryVideo.dataset.loaded = '1';
+        galleryVideo.load();
+    };
+
+    // Warm up when the gallery is near viewport.
+    const observer = new IntersectionObserver((entries, io) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            loadGallerySource();
+            io.unobserve(entry.target);
+        });
+    }, {
+        rootMargin: '500px 0px',
+        threshold: 0.01
+    });
+
+    observer.observe(galleryVideo);
+
+    // Fallback: user interaction should load immediately.
+    ['pointerdown', 'touchstart', 'mouseenter', 'focusin'].forEach(eventName => {
+        galleryVideo.addEventListener(eventName, loadGallerySource, { once: true, passive: true });
+    });
+
+    galleryVideo.addEventListener('play', () => {
+        if (galleryVideo.dataset.loaded !== '1') {
+            loadGallerySource();
+            galleryVideo.play().catch(() => {});
+        }
+    });
+}
+
 $(document).ready(function() {
     // Check for click events on the navbar burger icon
 
@@ -280,6 +393,12 @@ $(document).ready(function() {
     // Setup video autoplay for carousel
     setupVideoCarouselAutoplay();
 
+    // Lazy load gallery video source near viewport or on interaction
+    setupGalleryVideoLazyLoad();
+
+    // Warm up nearby progressive videos before user interacts with each showcase
+    setupProgressiveVideoWarmup();
+
     initAbstractVideoGallery();
     
     // ==========================================
@@ -289,53 +408,9 @@ $(document).ready(function() {
     initProgressiveVideoShowcase('rain');
     initProgressiveVideoShowcase('light'); 
     
-    // Preload all video sources for faster switching
-    preloadProgressiveVideos();
-    
     // Ensure all progressive videos loop properly
     ensureProgressiveVideosLoop();
 })
-
-// ==========================================
-// 【修改点 2】：增加 light 视频预加载
-// ==========================================
-function preloadProgressiveVideos() {
-    // Snow videos
-    const snowVideos = [
-        'static/videos/snow_114.mov',
-        'static/videos/snow_114_add_falling.mov',
-        'static/videos/snow_114_falling_acc.mov',
-        'static/videos/snow_114_falling_acc_ground.mov'
-    ];
-    
-    // Rain videos
-    const rainVideos = [
-        'static/videos/raw_video_220.mov',
-        'static/videos/add_raindrops_220.mov',
-        'static/videos/add_raindrops_plus_puddle_220.mov'
-    ];
-
-    // Light videos
-    const lightVideos = [
-        '../static/autoweather4d/videos/nolight.mp4',
-        '../static/autoweather4d/videos/targetA.mp4',
-        '../static/autoweather4d/videos/targetB.mp4',
-        '../static/autoweather4d/videos/alllight.mp4'
-    ];
-    
-    // Create hidden video elements to preload
-    const preloadContainer = document.createElement('div');
-    preloadContainer.style.display = 'none';
-    document.body.appendChild(preloadContainer);
-    
-    [...snowVideos, ...rainVideos, ...lightVideos].forEach(src => {
-        const video = document.createElement('video');
-        video.src = src;
-        video.preload = 'auto';
-        video.muted = true;
-        preloadContainer.appendChild(video);
-    });
-}
 
 // ==========================================
 // 【修改点 3】：用 Class 选择器代替硬编码 ID，自动适配所有模块
@@ -536,7 +611,7 @@ function updateProgressiveVideo(newSrc, newLabel, type) {
     };
     
     nextVideo.src = newSrc;
-    nextVideo.preload = 'auto';
+    nextVideo.preload = 'metadata';
     nextVideo.load();
 
     nextVideo.onloadeddata = () => {
