@@ -283,7 +283,7 @@ function warmupProgressiveVideoSource(src, preloadMode = 'metadata') {
     warmedProgressiveSources.add(src);
 }
 
-function warmupShowcaseVideos(showcaseType) {
+function warmupShowcaseVideos(showcaseType, strategy = 'balanced') {
     const container = document.querySelector(`.progressive-timeline-container[data-showcase-type="${showcaseType}"]`);
     if (!container) return;
 
@@ -293,7 +293,15 @@ function warmupShowcaseVideos(showcaseType) {
 
     if (stepSources.length === 0) return;
 
-    // Warm the first source with metadata and the likely next click target more aggressively.
+    if (strategy === 'aggressive') {
+        // Best interaction smoothness: prewarm all step videos for this showcase.
+        stepSources.forEach((src, index) => {
+            warmupProgressiveVideoSource(src, index <= 1 ? 'auto' : 'metadata');
+        });
+        return;
+    }
+
+    // Balanced mode: first source metadata, next likely click target auto.
     warmupProgressiveVideoSource(stepSources[0], 'metadata');
     if (stepSources[1]) {
         warmupProgressiveVideoSource(stepSources[1], 'auto');
@@ -310,20 +318,20 @@ function setupProgressiveVideoWarmup() {
 
             const showcaseType = entry.target.getAttribute('data-showcase-type');
             if (showcaseType) {
-                warmupShowcaseVideos(showcaseType);
+                warmupShowcaseVideos(showcaseType, 'aggressive');
             }
 
             io.unobserve(entry.target);
         });
     }, {
-        rootMargin: '600px 0px',
+        rootMargin: '900px 0px',
         threshold: 0.01
     });
 
     showcaseContainers.forEach(container => observer.observe(container));
 
     // Idle-time light warmup for the first video of each showcase.
-    const idleWarmup = () => ['snow', 'rain', 'light'].forEach(type => warmupShowcaseVideos(type));
+    const idleWarmup = () => ['snow', 'rain', 'light'].forEach(type => warmupShowcaseVideos(type, 'balanced'));
     if ('requestIdleCallback' in window) {
         requestIdleCallback(idleWarmup, { timeout: 2000 });
     } else {
@@ -354,7 +362,7 @@ function setupGalleryVideoLazyLoad() {
             io.unobserve(entry.target);
         });
     }, {
-        rootMargin: '500px 0px',
+        rootMargin: '1200px 0px',
         threshold: 0.01
     });
 
@@ -371,6 +379,13 @@ function setupGalleryVideoLazyLoad() {
             galleryVideo.play().catch(() => {});
         }
     });
+
+    // Idle-time fallback: load gallery source ahead of click even if user scrolls quickly.
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(loadGallerySource, { timeout: 1800 });
+    } else {
+        setTimeout(loadGallerySource, 1200);
+    }
 }
 
 $(document).ready(function() {
